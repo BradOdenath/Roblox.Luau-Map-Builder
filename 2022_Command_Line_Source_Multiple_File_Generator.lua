@@ -2,7 +2,9 @@ dp = [[dataPosition = Vector3.new(0,0,0)]]
 runcode = [[
 
 
-part = function(className, name, shape, reflectance, transparency, canCollide, size, brickColor, cframe, parent, 
+part = function(className, name, 
+shape, 
+reflectance, transparency, material, canCollide, size, brickColor, cframe, parent, 
 	decalFace, decalTexture, 
 	cylinderMeshScale, cylinderMeshOffset, 
 	blockMeshScale, blockMeshOffset, 
@@ -11,7 +13,10 @@ part = function(className, name, shape, reflectance, transparency, canCollide, s
 	p.Anchored = true
 	p.Locked = true
 	p.Size = size
-	p.Shape = shape
+	p.Material = material
+	if (shape ~= nil) then
+		p.Shape = shape
+	end
 	p.CanCollide = canCollide
 	p.Transparency = transparency
 	p.Reflectance = reflectance
@@ -61,7 +66,9 @@ end
 main = function()
 	local model = Instance.new("Model",workspace)
 	for i,v in pairs(partData) do
-		part(v.className, v.name, v.shape, v.reflectance, v.transparency, v.canCollide, v.size, v.brickColor, v.cframe, model, v.decalFace, v.decalTexture, v.cylinderMeshScale, v.cylinderMeshOffset, v.blockMeshScale, v.blockMeshOffset, v.specialMeshScale, v.specialMeshType, v.specialMeshId)
+		part(v.className, v.name, 
+		v.shape, 
+		v.reflectance, v.transparency, v.Material, v.canCollide, v.size, v.brickColor, v.cframe, model, v.decalFace, v.decalTexture, v.cylinderMeshScale, v.cylinderMeshOffset, v.blockMeshScale, v.blockMeshOffset, v.specialMeshScale, v.specialMeshType, v.specialMeshId)
 	end
 end
 
@@ -112,7 +119,7 @@ main = function()
 				'{' 
 					..'className = "'..v.ClassName..'",'
 					..'name = "'..v.Name..'",'
-					..'shape = '..tostring(v.Shape)..','
+					..'material = '..tostring(v.Material)..','
 					..'reflectance = '..tostring(v.Reflectance)..','
 					..'transparency = '..tostring(v.Transparency)..','
 					..'canCollide = '..tostring(v.CanCollide)..','
@@ -135,6 +142,12 @@ main = function()
 					..')'
 					..')'
 			)
+			local checkForShape, _ = pcall(function() return v.Shape end)
+			if (checkForShape) then
+				printz(',shape = '..tostring(v.Shape)..'')
+			else
+				printz(',shape = nil')
+			end
 			if (v:FindFirstChild("Decal")) then
 				printz( ', decalTexture = "'..tostring(v:FindFirstChild("Decal").Texture)..'", decalFace = '..tostring(v:FindFirstChild("Decal").Face)..'')
 			else
