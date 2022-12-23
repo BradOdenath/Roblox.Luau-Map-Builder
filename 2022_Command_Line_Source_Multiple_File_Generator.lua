@@ -68,7 +68,7 @@ main = function()
 	for i,v in pairs(partData) do
 		part(v.className, v.name, 
 		v.shape, 
-		v.reflectance, v.transparency, v.Material, v.canCollide, v.size, v.brickColor, v.cframe, model, v.decalFace, v.decalTexture, v.cylinderMeshScale, v.cylinderMeshOffset, v.blockMeshScale, v.blockMeshOffset, v.specialMeshScale, v.specialMeshType, v.specialMeshId)
+		v.reflectance, v.transparency, v.material, v.canCollide, v.size, v.brickColor, v.cframe, model, v.decalFace, v.decalTexture, v.cylinderMeshScale, v.cylinderMeshOffset, v.blockMeshScale, v.blockMeshOffset, v.specialMeshScale, v.specialMeshType, v.specialMeshId)
 	end
 end
 
