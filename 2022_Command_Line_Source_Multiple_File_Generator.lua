@@ -8,7 +8,7 @@ reflectance, transparency, material, canCollide, size, brickColor, cframe, paren
 	decalFace, decalTexture, 
 	cylinderMeshScale, cylinderMeshOffset, 
 	blockMeshScale, blockMeshOffset, 
-	specialMeshScale, specialMeshType, specialMeshId)
+	specialMeshScale, specialMeshType, specialMeshId, specialMeshTextureId)
 	local p = Instance.new(className)
 	p.Anchored = true
 	p.Locked = true
@@ -50,12 +50,13 @@ reflectance, transparency, material, canCollide, size, brickColor, cframe, paren
 		sm.Scale = specialMeshScale
 		sm.MeshType = specialMeshType
 		sm.MeshId = specialMeshId
+		sm.TextureId = specialMeshTextureId
 	end
 	
 	
 	--if (p.Name == "DiscoFloor") then
 	local l = Instance.new("PointLight",p)
-	l.Brightness = 0.2/27
+	l.Brightness = 0.2/100
 	l.Range = 666
 	--end
 	
@@ -67,8 +68,13 @@ main = function()
 	local model = Instance.new("Model",workspace)
 	for i,v in pairs(partData) do
 		part(v.className, v.name, 
-		v.shape, 
-		v.reflectance, v.transparency, v.material, v.canCollide, v.size, v.brickColor, v.cframe, model, v.decalFace, v.decalTexture, v.cylinderMeshScale, v.cylinderMeshOffset, v.blockMeshScale, v.blockMeshOffset, v.specialMeshScale, v.specialMeshType, v.specialMeshId)
+		v.shape, v.reflectance, v.transparency, v.material, 
+		v.canCollide, v.size, v.brickColor, v.cframe, 
+		model, 
+		v.decalFace, v.decalTexture, 
+		v.cylinderMeshScale, v.cylinderMeshOffset, 
+		v.blockMeshScale, v.blockMeshOffset, 
+		v.specialMeshScale, v.specialMeshType, v.specialMeshId, v.specialMeshTextureId)
 	end
 end
 
@@ -164,10 +170,10 @@ main = function()
 				printz( ',blockMeshScale = Vector3.new(0,0,0),blockMeshOffset = Vector3.new(0,0,0)')
 			end
 			if (v:FindFirstChildWhichIsA("SpecialMesh")) then
-				printz( ',specialMeshScale = Vector3.new('..tostring(v:FindFirstChildWhichIsA("SpecialMesh").Scale)..'), specialMeshType = '..tostring(v:FindFirstChildWhichIsA("SpecialMesh").MeshType)..', specialMeshId = "'..tostring(v:FindFirstChildWhichIsA("SpecialMesh").MeshId)..'"')
+				printz( ',specialMeshScale = Vector3.new('..tostring(v:FindFirstChildWhichIsA("SpecialMesh").Scale)..'), specialMeshType = '..tostring(v:FindFirstChildWhichIsA("SpecialMesh").MeshType)..', specialMeshId = "'..tostring(v:FindFirstChildWhichIsA("SpecialMesh").MeshId)..'"'..', specialMeshTextureId = "'..tostring(v:FindFirstChildWhichIsA("SpecialMesh").TextureId)..'"')
 
 			else
-				printz( ',specialMeshScale = Vector3.new(0,0,0), specialMeshType = "Head", specialMeshId = ""')
+				printz( ',specialMeshScale = Vector3.new(0,0,0), specialMeshType = "Head", specialMeshId = "", specialMeshTextureId = ""')
 			end
 			printz( '},')
 		end
